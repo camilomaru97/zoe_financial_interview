@@ -62,8 +62,9 @@ export const advisorReducer = (state:AdvisorsState, action:AdvisorAction ):Advis
       ...state,
       isLoading: false,
       hasError: false,
+      advisorById: action.payload,
       data: state.data.map(advisor => 
-        advisor.id === action.payload.id ? action.payload : advisor)
+        advisor.id === action.payload.id ? action.payload : advisor) 
     }
   case 'updateAdvisorError':
     return {

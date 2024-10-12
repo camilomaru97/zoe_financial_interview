@@ -4,7 +4,7 @@ import { Advisor, AdvisorsState } from '@/app/types'
 import { AdvisorsContext } from './AdvisorsContext'
 import { useReducer } from 'react'
 import { advisorReducer } from './advisorReducer'
-import { getAdvisorsByValueApi, postAdvisorsApi, deleteAdvisorApi } from '@/app/service/advisorsService'
+import { getAdvisorsByValueApi, postAdvisorsApi, deleteAdvisorApi, updateAdvisorApi } from '@/app/service/advisorsService'
 
 const INITIAL_STATE: AdvisorsState = {
   isLoading: true,
@@ -39,16 +39,17 @@ const AdvisorProvider = ({ children }: Props) => {
       .catch(error => dispatch({ type: 'createAdvisorError', payload: error.message }))
   }
 	
-  const deleteAdvisor = async (id:string) => {
+  const deleteAdvisor = async (id: string) => {
     deleteAdvisorApi(id)
       .then(() => dispatch({ type: 'deleteAdvisor', payload: id }))
       .catch(error => dispatch({ type: 'deleteAdvisorError', payload: error.message }))
   }
 
-  const updateAdvisor = async (id:string) => {
-    updateAdvisor(id)
-      .then(data => console.log(data))
-      .catch(error => console.log(error))
+  const updateAdvisor = async (data: Advisor) => {
+    const { id } = data
+    updateAdvisorApi(id, data)
+      .then(data => dispatch({ type:'updateAdvisor', payload: data }))
+      .catch(error => dispatch({ type: 'updateAdvisorError', payload: error.message }))
   }
 
   return (

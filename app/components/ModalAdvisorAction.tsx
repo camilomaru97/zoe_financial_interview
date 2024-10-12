@@ -11,7 +11,6 @@ const ModalAdvisorAction = ({ type, isSetOpenModal }: Props) => {
 
   const {
     formValuesItems,
-    successMessageVisible,
     error,
     hasError,
     onChangeValue,
@@ -51,7 +50,6 @@ const ModalAdvisorAction = ({ type, isSetOpenModal }: Props) => {
             </div>
           </form>
           {hasError && <p>{hasError}</p>}
-          {successMessageVisible && <p style={{ marginTop: '1rem', textAlign: 'center', color: '#28a745' }}>El usuario fue creado satisfactoriamente</p>}
         </div>
       </div>
     </main>

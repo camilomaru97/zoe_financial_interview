@@ -30,7 +30,7 @@ export interface AdvisorsState {
 	isLoading: boolean
 	hasError: boolean
 	data: Advisor[] | []
-	advisorById: Advisor[] | [] 
+	advisorById: Advisor | Advisor[] | [] 
 }
 
 export interface PlacesContextProps {
@@ -44,6 +44,6 @@ export interface PlacesContextProps {
 	searchAdvisorById: (value: string) => Promise<void>
 	createNewAdvisor: (data: Advisor) => Promise<void>
 	deleteAdvisor: (id: string) => Promise<void>
-	updateAdvisor: (id: string) => Promise<void>
+	updateAdvisor: (data: Advisor) => Promise<void>
 	
 }

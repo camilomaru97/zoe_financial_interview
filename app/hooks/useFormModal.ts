@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent, useContext, useState } from 'react'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { AdvisorsContext } from '../context'
 import { Advisor } from '../types'
 
@@ -23,8 +23,13 @@ const useFormModal = ({ isSetOpenModal }: Props) => {
   const [formValues, setFormValues] = useState(initialValue)
   const { name, id, income, email, phone, address } = formValues
   const [error, setError] = useState<{ [key: string]: string }>({})
-  const { createNewAdvisor, hasError } = useContext(AdvisorsContext)
-  const [successMessageVisible, setSuccessMessageVisible] = useState<boolean>(false)
+  const { createNewAdvisor, hasError, advisorById, updateAdvisor } = useContext(AdvisorsContext)
+
+  useEffect(() => {
+    if (advisorById) {
+      setFormValues(advisorById as Advisor)
+    }
+  }, [advisorById])
 
   const onChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -62,25 +67,25 @@ const useFormModal = ({ isSetOpenModal }: Props) => {
   const onHandleSubmit = (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault()
     setError({})
+		
     const { isValid, errors } = validateForm()
-    if (isValid) {
-      setFormValues(initialValue)
+    const isCreatingAdvisor = isValid && !advisorById
+    const isUpdatingAdvisor = advisorById
+
+    if (isCreatingAdvisor) {
       createNewAdvisor(formValues)
-      setSuccessMessageVisible(true)
-      setTimeout(() => {
-        setSuccessMessageVisible(false)
-        isSetOpenModal(false)
-      }, 5000)
-			
+    } else if (isUpdatingAdvisor) {
+      updateAdvisor(formValues)
     } else {
       setError(errors)
+      return
     }
+    setFormValues(initialValue)
+    isSetOpenModal(false)
   }
-
 
   return {
     formValuesItems,
-    successMessageVisible,
     error,
     hasError,
     onChangeValue,
