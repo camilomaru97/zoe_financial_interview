@@ -14,6 +14,15 @@ import { config } from '../config/config-app'
 import LoadingSpinner from '../components/LoadingSpinner'
 
 const ListAdvisors = () => {
+	
+  const SORT_OPTIONS = {
+    ascending: 'ascending',
+  }
+
+  const SORT_ICONS = {
+    upArrow: '↑',
+    downArrow: '↓'
+  }
 
   const { searchAdvisor, isLoading, hasError, data } = useContext(AdvisorsContext)
   const { currentPage, totalPages, handlePageChange } = usePagination({ 
@@ -51,10 +60,10 @@ const ListAdvisors = () => {
         <thead>
           <tr>
             <th onClick={() => requestSort('name')} style={{ cursor: 'pointer' }}>
-						Advisor Name {sortConfig.key === 'name' && (sortConfig.direction === 'ascending' ? '↑' : '↓')}
+						Advisor Name {sortConfig.key === 'name' && (sortConfig.direction === SORT_OPTIONS.ascending ? SORT_ICONS.upArrow : SORT_ICONS.downArrow)}
             </th>
             <th onClick={() => requestSort('income')} style={{ cursor: 'pointer' }}>
-						Income {sortConfig.key === 'income' && (sortConfig.direction === 'ascending' ? '↑' : '↓')}
+						Income {sortConfig.key === 'income' && (sortConfig.direction === SORT_OPTIONS.ascending ? SORT_ICONS.upArrow : SORT_ICONS.downArrow)}
             </th>
           </tr>
         </thead>

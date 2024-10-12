@@ -27,7 +27,6 @@ export const postAdvisorsApi = async (data: Advisor) => {
 
   const headers = {
     'Content-Type': 'application/json'
-    //token
   }
   try {
     const res = await fetch(url, {
@@ -48,7 +47,6 @@ export const deleteAdvisorApi = async (id: string) => {
 
   const headers = {
     'Content-Type': 'application/json'
-    // token
   }
 
   try {
@@ -68,7 +66,6 @@ export const updateAdvisorApi = async (id: string, data: Advisor) => {
 
   const headers = {
     'Content-Type': 'application/json'
-    // token
   }
 
   try {
