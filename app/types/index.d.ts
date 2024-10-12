@@ -40,10 +40,10 @@ export interface PlacesContextProps {
 	advisorById: Advisor[] | Advisor | []
 
 	//Methods
-	searchAdvisor: (value: string) => Promise<any>
-	searchAdvisorById: (value: string) => Promise<any>
-	createNewAdvisor: (data: Advisor) => Promise<any>
-	deleteAdvisor: (id: string) => Promise<any>
-	updateAdvisor: (id: string) => Promise<any>
+	searchAdvisor: (value: string) => Promise<void>
+	searchAdvisorById: (value: string) => Promise<void>
+	createNewAdvisor: (data: Advisor) => Promise<void>
+	deleteAdvisor: (id: string) => Promise<void>
+	updateAdvisor: (id: string) => Promise<void>
 	
 }

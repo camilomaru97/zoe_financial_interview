@@ -1,8 +1,8 @@
 'use client'
 
-import { useCallback, useMemo, useState } from "react";
-import { AdvisorSort, type Advisor } from "../types";
-import { config } from "../config/config-app";
+import { useCallback, useMemo, useState } from 'react'
+import { AdvisorSort, type Advisor } from '../types'
+import { config } from '../config/config-app'
 
 interface Props {
   data: Advisor[]
@@ -14,7 +14,7 @@ const useListAdvisors = ({ data }: Props) => {
   const [sortConfig, setSortConfig] = useState<{ 
       key: keyof AdvisorSort; direction: 'ascending' 
       | 'descending' }>({ key: 'name', direction: 'ascending' 
-  })
+      })
   
   const itemsPerPage = +config.paginationPerPage
   const indexOfLastItem = currentPage * itemsPerPage
@@ -24,13 +24,13 @@ const useListAdvisors = ({ data }: Props) => {
     if (!sortConfig.key) return data
 
     return [...data].sort((a, b) => {
-        if (a[sortConfig.key] < b[sortConfig.key]) {
-            return sortConfig.direction === "ascending" ? -1 : 1
-        }
-        if (a[sortConfig.key] > b[sortConfig.key]) {
-            return sortConfig.direction === "ascending" ? 1 : -1
-        }
-        return 0
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? -1 : 1
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? 1 : -1
+      }
+      return 0
     })
   }, [data, sortConfig])
 
@@ -48,7 +48,7 @@ const useListAdvisors = ({ data }: Props) => {
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber)
-  };
+  }
 
   return {
     currentItems,
