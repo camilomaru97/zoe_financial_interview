@@ -11,27 +11,27 @@
     cursor: pointer;
 }
 
-header{
+.advisor_value_container header{
     text-align: center;
 }
 
-header img{
+.advisor_value_container header img{
     width: 50%;
     margin-bottom: 2rem;
 }
 
-header h3{
+.advisor_value_container header h3{
     font-size: 24px;
     font-weight: 500;
     margin-bottom: 5px;
 }
 
-header p {
+.advisor_value_container header p {
     font-size: 16px;
     font-weight: 400;
 }
 
-main{
+.advisor_value_container{
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
@@ -41,14 +41,14 @@ main{
     height: 100vh;
 }
 
-form{
+.current_income_value{
     display: flex;
     flex-direction: column;
     color:#3F3E3A;
     border-top: 2rem;
 }
 
-form label{
+.current_income_value label{
     font-size: 14px;
     margin-bottom: 5px;
 }
@@ -68,7 +68,7 @@ form label{
     outline: none;
 }
 
-input[type="number"]::-webkit-outer-spin-button {
+.current_income_value input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }

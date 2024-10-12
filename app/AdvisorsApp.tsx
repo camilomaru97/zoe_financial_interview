@@ -25,6 +25,7 @@ export default function AdvisorsApp() {
           <p>Search by income to find advisors</p>
         </header>
         <form
+          className='current_income_value'
           onSubmit={onHandleSubmit}
         >
           <label>Current Income</label>

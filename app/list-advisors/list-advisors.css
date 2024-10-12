@@ -10,7 +10,7 @@
     padding: 5rem
 }
 
-section {
+.container_list_advisors section {
     width: 100%;
     height: 10px;
 }
@@ -37,12 +37,6 @@ section {
     color: #ffff;
     align-self: center;
     cursor: pointer;
-}
-
-table caption {
-    padding: 0rem 1rem 1rem 1rem;
-    font-weight: 500;
-    text-align: start;
 }
 
 table {
@@ -144,7 +138,6 @@ th, td {
 }
 
 /* Modal */
-/* Modal */
 .container_add_advisor {
     position: absolute;
 }
@@ -197,12 +190,12 @@ input {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 20px; /* Espacio entre los inputs */
+    gap: 20px; 
 }
 
 .add_input_advisor div {
-    flex: 1 1 calc(50% - 20px); /* Dos columnas */
-    min-width: 200px; /* Ancho mínimo para evitar que se reduzcan demasiado */
+    flex: 1 1 calc(50% - 20px); 
+    min-width: 200px; 
 }
 
 .box_form h2 {
@@ -284,7 +277,7 @@ input {
 @media (max-width: 768px) {
 
     .add_input_advisor div {
-        flex: 1 1 100%; /* Una sola columna en pantallas pequeñas */
+        flex: 1 1 100%;
     }
 
     .box_form {
