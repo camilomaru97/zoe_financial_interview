@@ -1,4 +1,4 @@
-import WrappeModalAdvisors from '@/app/components/ModalAdvisorAction'
+import ModalAdvisorAction from '@/app/components/ModalAdvisorAction'
 import { useState } from 'react'
 
 const AddAdvisors = () => {
@@ -9,7 +9,7 @@ const AddAdvisors = () => {
       <div>
         <button className="btn_add_advisor" onClick={() => isSetOpenModal(!isOpenModal)}>Add Advisor</button>
       </div>
-      {isOpenModal && <WrappeModalAdvisors type="createUser" isSetOpenModal={isSetOpenModal} />}
+      {isOpenModal && <ModalAdvisorAction type="createUser" isSetOpenModal={isSetOpenModal} />}
     </>
 
   )

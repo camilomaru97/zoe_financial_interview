@@ -1,6 +1,6 @@
 'use client'
 
-import WrappeModalAdvisors from '@/app/components/ModalAdvisorAction'
+import ModalAdvisorAction from '@/app/components/ModalAdvisorAction'
 import { useState } from 'react'
 
 const UpdateAdvisor = () => {
@@ -8,7 +8,7 @@ const UpdateAdvisor = () => {
   return (
     <>
       <button onClick={() => isSetOpenModal(!isOpenModal)}>Edit Advisor</button>
-      {isOpenModal && <WrappeModalAdvisors type="updateUser" isSetOpenModal={isSetOpenModal} />}
+      {isOpenModal && <ModalAdvisorAction type="updateUser" isSetOpenModal={isSetOpenModal} />}
     </>
   )
 }
