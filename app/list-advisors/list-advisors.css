@@ -85,11 +85,6 @@ tbody tr:hover td.advisor-name .view-profile {
     display: inline-block; 
 }
 
-.view-profile:hover {
-    text-decoration: underline; 
-}
-
-
 tbody tr:hover .view-profile {
     visibility: visible; 
     opacity: 1; 
@@ -246,13 +241,14 @@ input {
 }
 
 .null_incoming_list {
-    height: 300px;
-    width: 120%; 
+    height: auto;
+    text-align: center;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
     flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    padding: 10rem 5rem;
+    margin-left: 5rem;
 }
 
 .null_incoming_list button {
@@ -271,6 +267,7 @@ input {
 
 .null_incoming_list p {
     text-align: center;
+    margin: 0;
 }
 
 

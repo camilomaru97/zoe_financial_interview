@@ -6,6 +6,7 @@ import AdvisorInfo from './components/AdvisorDetails'
 import { Advisor } from '../types'
 import { AdvisorsContext } from '../context/advisors/AdvisorsContext'
 import './advisor-detail.css'
+import LoadingSpinner from '../components/LoadingSpinner'
 
 const AdvisorDetails = () => {
 
@@ -23,7 +24,7 @@ const AdvisorDetails = () => {
     searchAdvisorById(userId!)
   }, [userId])
 
-  if(isLoading) return <p>Cargando...</p>
+  if(isLoading) return <LoadingSpinner message='Loading Advisor Information' />
 
   return (
     <>

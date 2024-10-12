@@ -36,6 +36,11 @@ export const formatIncomeValue = (value: string): string => {
   return `$${formattedValue}`
 }
 
+export const isValidEmail = (email: string): boolean => {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailPattern.test(email)
+}
+
 
 // Regex
 export const incomeCleanRegex = /[\$,]/g

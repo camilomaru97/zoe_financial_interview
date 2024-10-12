@@ -3,6 +3,7 @@
 import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { AdvisorsContext } from '../context'
 import { Advisor } from '../types'
+import { isValidEmail } from '../utils'
 
 const initialValue:Advisor = {
   avatar: '',
@@ -16,20 +17,53 @@ const initialValue:Advisor = {
 
 interface Props {
   isSetOpenModal: (value: boolean) => void
+	type: 'createUser' | 'updateUser'
 }
 
-const useFormModal = ({ isSetOpenModal }: Props) => {
+export enum Action {
+  createUser,
+  updateUser,
+}
+
+const useFormModal = ({ isSetOpenModal, type }: Props) => {
 
   const [formValues, setFormValues] = useState(initialValue)
   const { name, id, income, email, phone, address } = formValues
   const [error, setError] = useState<{ [key: string]: string }>({})
   const { createNewAdvisor, hasError, advisorById, updateAdvisor } = useContext(AdvisorsContext)
+  const [successMsg, setsuccessMsg] = useState<string>('')
+
+
+  const formValuesItems = [
+    { type: 'text', label: 'Name', value: name, name: 'name' },
+    { type: 'text', label: 'ID Number', value: id, name: 'id' },
+    { type: 'number', label: 'Income', value: income, name: 'income' },
+    { type: 'text', label: 'Email', value: email, name: 'email' },
+    { type: 'text', label: 'Phone', value: phone, name: 'phone' },
+    { type: 'text', label: 'Address', value: address, name: 'address' }
+  ]
 
   useEffect(() => {
-    if (advisorById) {
+    if (type === Action[0]) {
+      setFormValues(initialValue)
+    } else if (advisorById) {
       setFormValues(advisorById as Advisor)
     }
-  }, [advisorById])
+  }, [type, advisorById])
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout
+    if (successMsg) {
+      timeoutId = setTimeout(() => {
+        isSetOpenModal(false)
+        setsuccessMsg('')
+      }, 3000)
+    }
+
+    return () => {
+      clearTimeout(timeoutId)
+    }
+  }, [successMsg, isSetOpenModal])
 
   const onChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target
@@ -50,44 +84,43 @@ const useFormModal = ({ isSetOpenModal }: Props) => {
         isValid = false
         errors[name] = `${name} is required`
       }
+      if (name === 'email' && !isValidEmail(value as string)) {
+        isValid = false
+        errors[name] = 'Please enter a valid email address'
+      }
     })
 
     return { isValid, errors }
   }
 
-  const formValuesItems = [
-    { type: 'text', label: 'Name', value: name, name: 'name' },
-    { type: 'text', label: 'ID Number', value: id, name: 'id' },
-    { type: 'number', label: 'Income', value: income, name: 'income' },
-    { type: 'text', label: 'Email', value: email, name: 'email' },
-    { type: 'text', label: 'Phone', value: phone, name: 'phone' },
-    { type: 'text', label: 'Address', value: address, name: 'address' }
-  ]
-
   const onHandleSubmit = (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault()
     setError({})
 		
-    const { isValid, errors } = validateForm()
-    const isCreatingAdvisor = isValid && !advisorById
-    const isUpdatingAdvisor = advisorById
+    const { errors } = validateForm()
+    const isCreatingAdvisor = type === Action[0]
+    const isUpdatingAdvisor = type === Action[1]
 
     if (isCreatingAdvisor) {
       createNewAdvisor(formValues)
+      setFormValues(initialValue)
+      setsuccessMsg('You can view or edit the advisor details now.')
     } else if (isUpdatingAdvisor) {
       updateAdvisor(formValues)
+      setFormValues(initialValue)
+      setsuccessMsg('The advisor details have been updated successfully.')
     } else {
       setError(errors)
       return
     }
-    setFormValues(initialValue)
-    isSetOpenModal(false)
   }
 
   return {
     formValuesItems,
     error,
     hasError,
+    successMsg,
+    setFormValues,
     onChangeValue,
     onHandleSubmit
   }

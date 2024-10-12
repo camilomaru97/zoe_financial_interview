@@ -48,7 +48,9 @@ const AdvisorProvider = ({ children }: Props) => {
   const updateAdvisor = async (data: Advisor) => {
     const { id } = data
     updateAdvisorApi(id, data)
-      .then(data => dispatch({ type:'updateAdvisor', payload: data }))
+      .then(data =>{ 
+        dispatch({ type:'updateAdvisor', payload: data })
+      })
       .catch(error => dispatch({ type: 'updateAdvisorError', payload: error.message }))
   }
 

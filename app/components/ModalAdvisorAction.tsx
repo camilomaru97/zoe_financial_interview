@@ -1,6 +1,7 @@
 'use client'
 
 import useFormModal from '../hooks/useFormModal'
+import TimeoutMessage from './SetTimeMessage'
 
 interface Props {
 	type: 'createUser' | 'updateUser'
@@ -8,14 +9,14 @@ interface Props {
 }
 
 const ModalAdvisorAction = ({ type, isSetOpenModal }: Props) => {
-
   const {
     formValuesItems,
     error,
     hasError,
     onChangeValue,
-    onHandleSubmit
-  } = useFormModal({ isSetOpenModal })
+    onHandleSubmit,
+    successMsg
+  } = useFormModal({ isSetOpenModal, type })
 
 
   return (
@@ -32,7 +33,8 @@ const ModalAdvisorAction = ({ type, isSetOpenModal }: Props) => {
                 formValuesItems.map((value, index) => (
                   <div key={index}>
                     <label>{value.label}</label>
-                    <input 
+                    <input
+                      style={{ paddingLeft: '.5rem', outline: 'none' }}
                       type={value.type}
                       autoComplete="off"
                       name={value.name}
@@ -50,6 +52,7 @@ const ModalAdvisorAction = ({ type, isSetOpenModal }: Props) => {
             </div>
           </form>
           {hasError && <p>{hasError}</p>}
+          {successMsg !== '' && <TimeoutMessage message={successMsg}/> }
         </div>
       </div>
     </main>

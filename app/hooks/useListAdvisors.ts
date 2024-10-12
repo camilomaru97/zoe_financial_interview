@@ -1,25 +1,24 @@
 'use client'
 
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo, useState, useCallback } from 'react'
 import { AdvisorSort, type Advisor } from '../types'
 import { config } from '../config/config-app'
 
 interface Props {
   data: Advisor[]
+  currentPage: number
 }
 
-const useListAdvisors = ({ data }: Props) => {
-  
-  const [currentPage, setCurrentPage] = useState<number>(1)
+const useListAdvisors = ({ data, currentPage }: Props) => { 
   const [sortConfig, setSortConfig] = useState<{ 
-      key: keyof AdvisorSort; direction: 'ascending' 
-      | 'descending' }>({ key: 'name', direction: 'ascending' 
-      })
-  
+    key: keyof AdvisorSort; 
+    direction: 'ascending' | 'descending' 
+  }>({ key: 'name', direction: 'ascending' })
+
   const itemsPerPage = +config.paginationPerPage
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  
+
   const sortedData = useMemo(() => {
     if (!sortConfig.key) return data
 
@@ -34,9 +33,7 @@ const useListAdvisors = ({ data }: Props) => {
     })
   }, [data, sortConfig])
 
-  const totalPages = Math.ceil(sortedData.length / itemsPerPage)
   const currentItems = sortedData.slice(indexOfFirstItem, indexOfLastItem)
-
 
   const requestSort = useCallback((key: keyof AdvisorSort) => {
     let direction: 'ascending' | 'descending' = 'ascending'
@@ -46,17 +43,11 @@ const useListAdvisors = ({ data }: Props) => {
     setSortConfig({ key, direction })
   }, [sortConfig])
 
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber)
-  }
-
   return {
     currentItems,
-    totalPages,
     sortConfig,
-    currentPage,
-    handlePageChange,
     requestSort,
   }
 }
+
 export default useListAdvisors

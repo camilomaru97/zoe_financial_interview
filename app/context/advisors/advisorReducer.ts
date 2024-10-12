@@ -66,6 +66,11 @@ export const advisorReducer = (state:AdvisorsState, action:AdvisorAction ):Advis
       data: state.data.map(advisor => 
         advisor.id === action.payload.id ? action.payload : advisor) 
     }
+  case 'clearAdvisorById':
+    return {
+      ...state,
+      advisorById: [],
+    }
   case 'updateAdvisorError':
     return {
       ...state,

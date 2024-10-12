@@ -18,7 +18,7 @@ const AdvisorInfo = () => {
 
   const onDeleteAdvisor = (id: string) => {
     deleteAdvisor(id)
-    setMessage('Deleting User...')
+    setMessage('The advisor has been successfully deleted.')
     setTimeout(() => {
       useNavigation.back()
     },3000)
@@ -30,7 +30,7 @@ const AdvisorInfo = () => {
     <main className="container_info_advisor">
       <div className="container_box">
         <header>
-          <Image alt={name} src={avatar} width={150} height={150} style={{ borderRadius: '50%' }} />
+          <Image alt={name} src={avatar === '' ? 'https://randomuser.me/api/portraits/med/men/29.jpg' : avatar } width={150} height={150} style={{ borderRadius: '50%' }} />
           <div>
             <button onClick={() => onDeleteAdvisor(id)}>Delete</button>
             <UpdateAdvisor/>

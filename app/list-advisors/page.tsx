@@ -8,18 +8,19 @@ import { AdvisorsContext } from '../context'
 import AddAdvisors from './components/AddAdvisors'
 import './list-advisors.css'
 import useListAdvisors from '../hooks/useListAdvisors'
+import usePagination from '../hooks/usePagination'
+import Pagination from '../components/Pagination'
+import { config } from '../config/config-app'
+import LoadingSpinner from '../components/LoadingSpinner'
 
 const ListAdvisors = () => {
 
   const { searchAdvisor, isLoading, hasError, data } = useContext(AdvisorsContext)
-  const {
-    currentItems,
-    currentPage, 
-    sortConfig, 
-    totalPages,
-    requestSort,
-    handlePageChange 
-  } = useListAdvisors({ data })
+  const { currentPage, totalPages, handlePageChange } = usePagination({ 
+    totalItems: data.length, 
+    itemsPerPage: +config.paginationPerPage 
+  })
+  const { currentItems, sortConfig, requestSort } = useListAdvisors({ data, currentPage })
 
   const useNavigation = useRouter() 
   const searchParams = useSearchParams()
@@ -36,7 +37,7 @@ const ListAdvisors = () => {
     useNavigation.push('/')
   }
 
-  if(isLoading) return <p>Loading...</p>
+  if(isLoading) return <LoadingSpinner message='Searching for the best advisors for you...' />
 
   return (
     <main className="container_list_advisors">
@@ -79,18 +80,11 @@ const ListAdvisors = () => {
         </tfoot>
       </table>
       {hasError && <p>{hasError}</p>}
-      <div className="pagination">
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index + 1}
-            onClick={() => handlePageChange(index + 1)}
-            disabled={currentPage === index + 1}
-            style={{ margin: '0 5px' }}
-          >
-            {index + 1}
-          </button>
-        ))}
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </main>
 
   )

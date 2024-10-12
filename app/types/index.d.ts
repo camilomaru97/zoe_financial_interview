@@ -24,7 +24,8 @@ export type AdvisorAction =
 	{type: 'deleteAdvisor', payload: string} | 
 	{type: 'deleteAdvisorError', payload: boolean} | 
 	{type: 'updateAdvisor', payload: Advisor} | 
-	{type: 'updateAdvisorError', payload: boolean}
+	{type: 'updateAdvisorError', payload: boolean} |
+	{type: 'clearAdvisorById' }
 
 export interface AdvisorsState {
 	isLoading: boolean
